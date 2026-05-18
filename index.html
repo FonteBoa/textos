@@ -8,31 +8,12 @@
   <link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-
-<header><div class="titulo" id="titulo">ficção breve de Luiz Fonte Boa, (1962- )</div></header>
-
+<header><div class="titulo" id="titulo">ficção breve de Luiz Fonte Boa, (1962- )</div></header>
 <nav id="nav-menu"></nav>
-
 <div class="hero-wrap">
   <div class="hero-text" id="hero">fonteboa</div>
 </div>
-
 <script src="layout_master.js"></script>
-<script>
-  function fitHero() {
-    const el = document.getElementById('hero');
-    if (!el) return;
-    el.style.fontSize = '100px';
-    el.style.fontSize = (100 * (window.innerWidth * 1.12) / el.scrollWidth) + 'px';
-  }
-
-  document.fonts.ready.then(() => {
-    initLayout('inicio', 'home');
-    fitHero();
-  });
-
-  window.addEventListener('resize', fitHero);
-</script>
-
+<script>initLayout('inicio');</script>
 </body>
 </html>

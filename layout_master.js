@@ -59,22 +59,25 @@ function injectMenu(pageKey) {
     const nav = document.getElementById('nav-menu');
     if (!nav) return;
 
-    const path = window.location.pathname;
-    const page = path.split("/").pop().toLowerCase() || "index.html";
+    // Detecta se está numa subpasta (contos/, ensaios/, cronicas/)
+    const partes = window.location.pathname.split('/').filter(Boolean);
+    const emSubpasta = ['contos', 'ensaios', 'cronicas'].includes(partes[partes.length - 2]);
+    const prefixo = emSubpasta ? '../' : '';
+
+    const page = partes[partes.length - 1] || 'index.html';
 
     const links = [
-        { id: 'contos',   href: 'contos_index.html',   label: 'contos'    },
-        { id: 'ensaios',  href: 'ensaios_index.html',  label: 'ensaios'   },
-        { id: 'cronicas', href: 'cronicas_index.html', label: 'crônicas'  },
-        { id: 'notas',    href: 'anotacoes.html',       label: 'anotações' },
-        { id: 'inicio',   href: 'index.html',           label: 'início'    }
+        { id: 'contos',   href: prefixo + 'contos_index.html',   label: 'contos'    },
+        { id: 'ensaios',  href: prefixo + 'ensaios_index.html',  label: 'ensaios'   },
+        { id: 'cronicas', href: prefixo + 'cronicas_index.html', label: 'crônicas'  },
+        { id: 'notas',    href: prefixo + 'anotacoes.html',       label: 'anotações' },
+        { id: 'inicio',   href: prefixo + 'index.html',           label: 'início'    }
     ];
 
     const ehPaginaDeTexto = (
         page.startsWith('conto-')   ||
         page.startsWith('ensaio-')  ||
-        page.startsWith('cronica-') ||
-        page.includes('-rolagem')
+        page.startsWith('cronica-')
     );
 
     let html = '';

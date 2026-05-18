@@ -1,25 +1,16 @@
 @echo off
-title fonteboa publicando...
-git config --global gc.auto 0
-git config --global gc.autopacklimit 0
-git config --global gc.pruneExpire never
+title fonteboa — teste local
 echo.
 echo ================================================
-echo   AVISO IMPORTANTE
+echo   PUBLICAR LOCAL (sem envio ao GitHub)
 echo ================================================
 echo.
-echo   O publicador ira gerar seus HTMLs e enviar
-echo   tudo ao GitHub automaticamente.
-echo.
-echo   Aguarde ate ver a mensagem:
-echo   "Enviado com sucesso para o GitHub Pages!"
-echo   antes de fechar esta janela.
-echo.
-echo ================================================
+echo   Os HTMLs serao gerados nas subpastas corretas
+echo   mas NAO serao enviados ao GitHub.
 echo.
 pause
 echo.
 set SITE_DIR=%~dp0..
-echo n | node "%~dp0publicar.js" "%SITE_DIR%"
+node "%~dp0publicar-local.js" "%SITE_DIR%"
 echo.
 pause

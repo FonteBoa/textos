@@ -1,62 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>crônicas — fonteboa</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&amp;family=Lora:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/></head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>crônicas — fonteboa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+</head>
 <body>
 <header><div class="titulo" id="titulo">ficção breve de Luiz Fonte Boa, (1962- )</div></header>
-<nav id="nav-menu">
-<a href="contos_index.html">contos</a>
-<a href="ensaios_index.html">ensaios</a>
-<a class="active" href="cronicas_index.html">crônicas</a>
-<a href="anotacoes.html">anotações</a>
-<a class="inicio" href="index.html">início</a>
-</nav>
+<nav id="nav-menu"></nav>
 <div class="index-area" id="content-area">
-<div class="index-header">
-<span class="index-genre-label">crônicas</span>
-</div>
-<div class="index-divider"></div>
-<div class="index-columns">
-<ul class="index-col">
-
-
-</ul>
-</div>
+  <div class="index-header">
+    <span class="index-genre-label">crônicas</span>
+  </div>
+  <div class="index-divider"></div>
+  <div class="index-columns">
+    <ul class="index-col">
+    </ul>
+  </div>
 </div>
 <div class="hero-wrap"><div class="hero-text" id="hero">crônicas</div></div>
-<script>
-function fitTitulo() {
-  const el = document.getElementById("titulo");
-  el.style.fontSize = "100px";
-  const header = document.querySelector("header");
-  const headerStyle = window.getComputedStyle(header);
-  const marginLeft = parseInt(headerStyle.paddingLeft) || 36;
-  const margin = marginLeft * 2;
-  const scale = (window.innerWidth - margin) / el.scrollWidth;
-  el.style.fontSize = (100 * scale) + "px";
-}
-function fitHero() {
-  const el = document.getElementById("hero");
-  el.style.fontSize = "100px";
-  const scale = (window.innerWidth * 1.12) / el.scrollWidth;
-  el.style.fontSize = (100 * scale) + "px";
-}
-function positionContentArea() {
-  const nav = document.getElementById('nav-menu');
-  const lastLink = nav.querySelector('a:last-child');
-  const lastLinkRect = lastLink.getBoundingClientRect();
-  const contentArea = document.getElementById('content-area');
-  const offset = window.innerWidth <= 600 ? 10 : 50;
-  contentArea.style.top = (lastLinkRect.bottom + offset) + 'px';
-}
-document.fonts.ready.then(() => { fitTitulo(); fitHero(); positionContentArea(); });
-window.addEventListener("resize", () => { fitTitulo(); fitHero(); positionContentArea(); });
-document.querySelectorAll('nav a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    if (this.href) { e.preventDefault(); window.location.href = this.href; }
-  });
-});
-</script>
-</body></html>
+<script src="layout_master.js"></script>
+<script>initLayout('cronicas');</script>
+</body>
+</html>
