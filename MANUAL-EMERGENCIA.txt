@@ -1,0 +1,84 @@
+══════════════════════════════════════════════════════
+  fonteboa — manual de emergência
+══════════════════════════════════════════════════════
+
+
+1. ROTINA DE PUBLICAÇÃO
+───────────────────────
+
+  1. Escreva o texto no WriteMonkey e salve como .txt
+
+  2. Primeira linha do .txt = título do texto
+     (sem símbolos especiais como # $ % & * etc)
+
+  3. Deixe uma linha em branco após o título
+
+  4. Escreva o texto corrido
+     Use **negrito** e *itálico* à vontade
+     Para capítulos, use **I.** **II.** etc em linha separada
+
+  5. Salve o .txt na pasta correta:
+       conto   → C:\TEXTOS\SITE\_publicador\rascunhos\contos\
+       ensaio  → C:\TEXTOS\SITE\_publicador\rascunhos\ensaios\
+       novela  → C:\TEXTOS\SITE\_publicador\rascunhos\novelas\
+       anotação→ C:\TEXTOS\SITE\_publicador\rascunhos\notas\
+
+  6. Clique duas vezes em:
+       C:\TEXTOS\SITE\_publicador\2-PUBLICAR.bat
+
+  7. Aguarde a janela fechar
+
+  8. Em 1-2 minutos o texto está no ar em:
+       https://fonteboa.github.io/site
+
+
+2. PARA APAGAR UM TEXTO JÁ PUBLICADO
+──────────────────────────────────────
+
+  1. Apague o HTML correspondente em C:\TEXTOS\SITE\
+
+  2. Clique duas vezes em 2-PUBLICAR.bat
+
+  3. O script remove a entrada do índice e atualiza
+     o site automaticamente
+
+
+3. PARA CORRIGIR UM TEXTO JÁ PUBLICADO
+────────────────────────────────────────
+
+  1. Abra o HTML correspondente em C:\TEXTOS\SITE\
+     no Bloco de Notas
+
+  2. Faça a correção e salve
+
+  3. Clique duas vezes em 2-PUBLICAR.bat
+
+  4. A correção vai ao ar automaticamente
+
+
+4. GITHUB DESKTOP — QUANDO USAR
+─────────────────────────────────
+
+  No dia a dia: NUNCA — o 2-PUBLICAR.bat cuida de tudo.
+
+  Abra apenas nestas situações excepcionais:
+
+  a) Computador formatado:
+       1. Instale o GitHub Desktop
+       2. Faça login
+       3. Clique em File → Clone repository
+       4. Escolha FonteBoa/site
+       5. Aponte para C:\TEXTOS\SITE
+
+  b) Erro de autenticação no bat:
+       1. Abra o GitHub Desktop
+       2. Ele reconecta automaticamente ao GitHub
+       3. Tente o 2-PUBLICAR.bat novamente
+
+
+5. ENDEREÇOS ÚTEIS
+───────────────────
+
+  Site publicado:    https://fonteboa.github.io/site
+  Repositório:       https://github.com/FonteBoa/site
+  GitHub Desktop:    https://desktop.github.com

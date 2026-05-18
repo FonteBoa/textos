@@ -1,0 +1,97 @@
+══════════════════════════════════════════════════════
+  fonteboa — softwares instalados e diretórios
+══════════════════════════════════════════════════════
+
+
+1. SOFTWARES INSTALADOS
+────────────────────────
+
+  a) Python
+       O que faz: linguagem de programação de uso geral
+       Instalado manualmente
+       Versão: verificar com   python --version   no cmd
+       Site oficial: https://python.org
+       Obs: instalado como suporte geral, não usado
+            diretamente pelo sistema fonteboa
+
+  b) Git
+       O que faz: envia os arquivos do site para o GitHub
+       Instalado por: 1-INSTALAR-UMA-VEZ.bat
+       Versão: verificar com   git --version   no cmd
+       Site oficial: https://git-scm.com
+
+  c) Node.js
+       O que faz: executa o publicar.js (o cérebro do publicador)
+       Instalado por: 1-INSTALAR-UMA-VEZ.bat
+       Versão: verificar com   node --version   no cmd
+       Site oficial: https://nodejs.org
+       Versão instalada: v24.15.0
+
+  d) GitHub Desktop
+       O que faz: interface visual para conectar a pasta
+                  local ao repositório online do GitHub
+       Instalado manualmente
+       Site oficial: https://desktop.github.com
+       Usado apenas na configuração inicial
+
+
+2. DIRETÓRIOS SAGRADOS — NÃO APAGAR
+─────────────────────────────────────
+
+  C:\TEXTOS\SITE\
+       Pasta raiz do site e do repositório GitHub local
+       Contém todos os HTMLs publicados
+
+  C:\TEXTOS\SITE\.git\
+       Pasta oculta criada automaticamente pelo Git
+       É o coração da sincronização com o GitHub
+       SE APAGADA: o 2-PUBLICAR.bat para de funcionar
+       NUNCA APAGUE
+
+  C:\TEXTOS\SITE\_publicador\
+       Contém os scripts do publicador e os rascunhos
+       SE APAGADA: o sistema de publicação para de funcionar
+
+  C:\TEXTOS\SITE\_publicador\rascunhos\
+       Onde você coloca os .txt para publicar
+
+  C:\TEXTOS\SITE\_publicador\rascunhos\[secao]\publicados\
+       Onde os .txt vão após publicados
+       É o seu arquivo de originais em txt
+
+
+3. ONDE ESTÃO OS SOFTWARES NO COMPUTADOR
+──────────────────────────────────────────
+
+  Python:
+       C:\Users\fonte\AppData\Local\Programs\Python\
+
+  Git:
+       C:\Program Files\Git\
+
+  Node.js:
+       C:\Program Files\nodejs\
+
+  GitHub Desktop:
+       C:\Users\fonte\AppData\Local\GitHubDesktop\
+
+
+4. COMO VERIFICAR SE ESTÃO FUNCIONANDO
+────────────────────────────────────────
+
+  Abra o Prompt de Comando (cmd) e digite:
+
+       python --version
+       git --version
+       node --version
+
+  Se retornar um número de versão, estão funcionando.
+  Se retornar erro, reinstale pelo site oficial.
+
+
+5. REPOSITÓRIO ONLINE
+──────────────────────
+
+  Endereço:   https://github.com/FonteBoa/site
+  Site:       https://fonteboa.github.io/site
+  Login:      github.com (conta FonteBoa)
