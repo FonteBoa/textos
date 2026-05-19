@@ -1,12 +1,11 @@
 /**
- * publicar-local.js — fonteboa
+ * publicar.js — fonteboa
  * Gera HTMLs nas subpastas contos/, ensaios/, cronicas/
- * e atualiza anotacoes.html a partir de rascunhos/anotacoes.txt
- * SEM envio ao GitHub — para testes locais
  */
 
 const fs   = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const CONFIG = {
   siteDir: process.argv[2] || '.',
@@ -83,26 +82,6 @@ function paragrafosParaHtml(texto) {
     .filter(p => p.length > 0)
     .map(p => `<p>${mdParaHtml(p.replace(/\n/g, ' '))}</p>`)
     .join('\n      ');
-}
-
-function publicarAnotacoes(siteDir, scriptDir) {
-  const caminhoTxt = path.join(scriptDir, 'rascunhos', 'anotacoes.txt');
-  if (!fs.existsSync(caminhoTxt)) return false;
-
-  const raw = fs.readFileSync(caminhoTxt, 'utf8').replace(/\r\n/g, '\n');
-  const corpoHtml = paragrafosParaHtml(raw.trim());
-
-  const caminhoHtml = path.join(siteDir, 'anotacoes.html');
-  let html = fs.readFileSync(caminhoHtml, 'utf8');
-
-  html = html.replace(
-    /(<div class="scroll-inner" id="scroller">)[\s\S]*?(<\/div>)/,
-    `$1\n      ${corpoHtml}\n    $2`
-  );
-
-  fs.writeFileSync(caminhoHtml, html, 'utf8');
-  console.log('  ✓ anotacoes.html atualizado');
-  return true;
 }
 
 function gerarHtml(secao, titulo, corpo) {
@@ -182,7 +161,7 @@ let totalNovos = 0, totalRemovidos = 0;
 const erros = [];
 
 console.log('\n══════════════════════════════════════');
-console.log('  fonteboa — publicador LOCAL');
+console.log('  fonteboa — publicador');
 console.log('══════════════════════════════════════\n');
 
 // Garante que as subpastas existem
@@ -190,10 +169,6 @@ for (const subpasta of Object.values(CONFIG.subpastas)) {
   const dir = path.join(siteDir, subpasta);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
-
-// Atualiza anotações
-const anotacoesAtualizadas = publicarAnotacoes(siteDir, scriptDir);
-if (anotacoesAtualizadas) totalNovos++;
 
 // Limpa índices
 for (const [secao, nomeIndice] of Object.entries(CONFIG.indices)) {
@@ -250,8 +225,29 @@ if (erros.length > 0) {
   erros.forEach(e => console.log(`    ! ${e}`));
 }
 
-console.log('\n  Resumo:');
-if (totalNovos > 0)     console.log(`  ✓ ${totalNovos} texto(s) gerado(s)`);
-if (totalRemovidos > 0) console.log(`  – ${totalRemovidos} entrada(s) removida(s) dos índices`);
-if (totalNovos === 0 && totalRemovidos === 0) console.log('  Nenhuma alteração.');
-console.log();
+console.log('\n  Verificando alterações para enviar ao GitHub...');
+try {
+  process.chdir(siteDir);
+  execSync('git add -A', { stdio: 'pipe' });
+  const status = execSync('git status --porcelain').toString().trim();
+  if (status.length > 0) {
+    const partes = [];
+    if (totalNovos > 0)     partes.push(`${totalNovos} novo(s)`);
+    if (totalRemovidos > 0) partes.push(`${totalRemovidos} removido(s)`);
+    const msg = partes.length > 0 ? `publica: ${partes.join(', ')}` : `atualiza arquivos do site`;
+    execSync(`git commit -m "${msg}"`, { stdio: 'inherit' });
+    try {
+      execSync('git push', { stdio: 'inherit' });
+    } catch(e) {
+      console.log('\n  Branch divergido — forçando sincronização...');
+      execSync('git push --force', { stdio: 'inherit' });
+    }
+    console.log('\n  ✓ Enviado com sucesso para o GitHub Pages!');
+    console.log('  As alterações estarão no ar em cerca de 1 minuto.\n');
+  } else {
+    console.log('\n  Nenhuma alteração pendente. Site já está atualizado.\n');
+  }
+} catch (e) {
+  console.log('\n  [ERRO no envio ao GitHub]');
+  console.log('  Detalhes: ' + e.message);
+}

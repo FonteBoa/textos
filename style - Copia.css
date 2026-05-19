@@ -1,0 +1,268 @@
+/* ═══════════════════════════════════════════
+   style.css — fonteboa
+   Variáveis CSS no :root = um único ponto
+   de controle para cores, fontes e espaços.
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ── Variáveis globais ─────────────────────
+   Para mudar qualquer aspecto visual do site
+   inteiro, edite apenas esta seção.          */
+:root {
+  --bg:           #F2DFCE;
+  --fg:           #000;
+  --fg-text:      #3E474F;
+  --fg-muted:     rgba(0,0,0,0.18);
+  --accent:       #ae3321;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+
+  --pad-h:        36px;   /* padding horizontal do cabeçalho e áreas */
+  --pad-h-mobile: 16px;
+
+  --nav-size:     2.2rem; /* tamanho dos links do nav */
+  --nav-size-mob: 1.1rem;
+
+  --body-size:    1.15rem;
+  --body-lh:      1.7;
+}
+
+/* ── Reset ─────────────────────────────── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Cabeçalho ─────────────────────────── */
+header {
+  padding: 28px var(--pad-h) 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 20;
+}
+
+.titulo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1.1;
+  white-space: nowrap;
+  display: block;
+  color: var(--fg-muted);
+}
+
+/* ── Nav ───────────────────────────────── */
+nav {
+  padding: 64px var(--pad-h) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+  z-index: 25;
+}
+
+nav a {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: var(--nav-size);
+  color: var(--fg);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  padding: 2px 12px;
+  width: fit-content;
+  line-height: 1.15;
+  transition: background .2s, color .2s;
+  cursor: pointer;
+}
+
+nav a:hover        { background: var(--fg);     color: var(--bg); }
+nav a.active       { background: var(--fg);     color: var(--bg); }
+nav a.active:hover { background: var(--accent); color: var(--bg); }
+
+/* Estilo especial para o link "início" no hover */
+nav a[href="index.html"]:hover { background: var(--accent); color: var(--bg); }
+
+/* ── Hero decorativo ───────────────────── */
+.hero-wrap {
+  position: fixed;
+  bottom: -0.08em;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.hero-text {
+  font-family: var(--font-display);
+  font-weight: 900;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: -0.02em;
+  color: var(--fg-muted);
+}
+
+/* ── Barra de progresso de leitura ─────── */
+/* Injetada dinamicamente pelo layout_master.js
+   nas páginas de texto. Sem necessidade de HTML. */
+#reading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--accent);
+  z-index: 100;
+  transition: width .1s linear;
+  pointer-events: none;
+}
+
+/* ── Páginas de texto ──────────────────── */
+.content-area {
+  position: absolute;
+  left: var(--pad-h);
+  right: var(--pad-h);
+  bottom: -40px;
+  display: flex;
+  flex-direction: column;
+  z-index: 15;
+}
+
+.text-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.8rem;
+  letter-spacing: -0.01em;
+  color: var(--fg-muted);
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.scroll-area {
+  flex: 1;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.scroll-inner {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 16px 0 120px;
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  color: var(--fg-text);
+  white-space: pre-wrap;
+  tab-size: 4;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-inner::-webkit-scrollbar { display: none; }
+
+.content-area-fade {
+  position: fixed;
+  left: var(--pad-h);
+  right: var(--pad-h);
+  height: 80px;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+  z-index: 18;
+}
+
+/* ── Páginas de índice ─────────────────── */
+.index-area {
+  position: absolute;
+  left: var(--pad-h);
+  right: var(--pad-h);
+  bottom: 30px;
+  z-index: 30;
+  overflow-y: auto;
+  padding-bottom: 120px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.index-area::-webkit-scrollbar { display: none; }
+
+.index-header     { margin-bottom: 10px; }
+
+.index-genre-label {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2.6rem;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.index-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.25);
+  margin-bottom: 14px;
+}
+
+.index-columns {
+  display: flex;
+  gap: 40px;
+}
+
+.index-col {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.index-col li { list-style: none; }
+
+.index-col a {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: #1a1a1a;
+  text-decoration: none;
+  line-height: 1.35;
+  display: inline-block;
+  padding: 1px 6px;
+  transition: background .15s, color .15s;
+  cursor: pointer;
+  position: relative;
+  z-index: 50;
+}
+
+.index-col a:hover {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* ── Mobile ────────────────────────────── */
+@media (max-width: 600px) {
+  nav {
+    padding: 32px var(--pad-h-mobile) 0;
+    align-items: flex-end;
+  }
+
+  nav a { font-size: var(--nav-size-mob); padding: 1px 6px; }
+
+  header { padding: 20px var(--pad-h-mobile) 0; }
+
+  .content-area,
+  .index-area          { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
+
+  .content-area-fade   { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
+}

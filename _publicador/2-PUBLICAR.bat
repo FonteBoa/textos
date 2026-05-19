@@ -11,6 +11,6 @@ echo.
 pause
 echo.
 set SITE_DIR=%~dp0..
-node "%~dp0publicar-local.js" "%SITE_DIR%"
+node "%~dp0publicar.js" "%SITE_DIR%"
 echo.
 pause
