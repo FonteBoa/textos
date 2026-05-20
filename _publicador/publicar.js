@@ -1,7 +1,6 @@
 /**
  * publicar.js — fonteboa
  * Gera HTMLs nas subpastas contos/, ensaios/, cronicas/
- * e atualiza anotacoes.html a partir de rascunhos/anotacoes.txt
  */
 
 const fs   = require('fs');
@@ -83,26 +82,6 @@ function paragrafosParaHtml(texto) {
     .filter(p => p.length > 0)
     .map(p => `<p>${mdParaHtml(p.replace(/\n/g, ' '))}</p>`)
     .join('\n      ');
-}
-
-function publicarAnotacoes(siteDir, scriptDir) {
-  const caminhoTxt = path.join(scriptDir, 'rascunhos', 'anotacoes.txt');
-  if (!fs.existsSync(caminhoTxt)) return false;
-
-  const raw = fs.readFileSync(caminhoTxt, 'utf8').replace(/\r\n/g, '\n');
-  const corpoHtml = paragrafosParaHtml(raw.trim());
-
-  const caminhoHtml = path.join(siteDir, 'anotacoes.html');
-  let html = fs.readFileSync(caminhoHtml, 'utf8');
-
-  html = html.replace(
-    /(<div class="scroll-inner" id="scroller">)[\s\S]*?(<\/div>)/,
-    `$1\n      ${corpoHtml}\n    $2`
-  );
-
-  fs.writeFileSync(caminhoHtml, html, 'utf8');
-  console.log('  ✓ anotacoes.html atualizado');
-  return true;
 }
 
 function gerarHtml(secao, titulo, corpo) {
@@ -190,10 +169,6 @@ for (const subpasta of Object.values(CONFIG.subpastas)) {
   const dir = path.join(siteDir, subpasta);
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
-
-// Atualiza anotações
-const anotacoesAtualizadas = publicarAnotacoes(siteDir, scriptDir);
-if (anotacoesAtualizadas) totalNovos++;
 
 // Limpa índices
 for (const [secao, nomeIndice] of Object.entries(CONFIG.indices)) {
