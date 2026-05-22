@@ -1,6 +1,7 @@
 /**
  * publicar.js — fonteboa
  * Gera HTMLs nas subpastas contos/, ensaios/, cronicas/
+ * Insere parágrafos novos em anotacoes.html
  */
 
 const fs   = require('fs');
@@ -11,9 +12,10 @@ const CONFIG = {
   siteDir: process.argv[2] || '.',
 
   rascunhos: {
-    contos:   'rascunhos/contos',
-    ensaios:  'rascunhos/ensaios',
-    cronicas: 'rascunhos/cronicas',
+    contos:    'rascunhos/contos',
+    ensaios:   'rascunhos/ensaios',
+    cronicas:  'rascunhos/cronicas',
+    anotacoes: 'rascunhos/anotacoes',
   },
 
   subpastas: {
@@ -99,7 +101,7 @@ function gerarHtml(secao, titulo, corpo) {
   <link href="../style.css" rel="stylesheet"/>
   <link href="../comentarios.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="texto">
 
 <header><div class="titulo" id="titulo"></div></header>
 <nav id="nav-menu"></nav>
@@ -154,6 +156,48 @@ function limparIndice(arquivoIndice, siteDir, subpasta) {
   return removidos;
 }
 
+function publicarAnotacoes(siteDir, scriptDir) {
+  const pastaAbsoluta = path.resolve(scriptDir, CONFIG.rascunhos.anotacoes);
+  if (!fs.existsSync(pastaAbsoluta)) return 0;
+
+  const txts = fs.readdirSync(pastaAbsoluta).filter(f => f.endsWith('.txt'));
+  if (txts.length === 0) return 0;
+
+  const arquivoHtml = path.join(siteDir, 'anotacoes.html');
+  if (!fs.existsSync(arquivoHtml)) {
+    console.log('  [aviso] anotacoes.html não encontrado.');
+    return 0;
+  }
+
+  let html = fs.readFileSync(arquivoHtml, 'utf8');
+  let inseridos = 0;
+
+  console.log(`  Seção: anotacoes (${txts.length} arquivo(s))`);
+
+  for (const nomeArquivo of txts) {
+    const caminhoTxt = path.join(pastaAbsoluta, nomeArquivo);
+    const corpo = fs.readFileSync(caminhoTxt, 'utf8')
+      .replace(/\r\n/g, '\n').trim();
+    if (!corpo) continue;
+
+    const novoP = `\n      <p>${mdParaHtml(corpo)}</p>`;
+    html = html.replace(
+      '<div class="scroll-inner" id="scroller">',
+      '<div class="scroll-inner" id="scroller">' + novoP
+    );
+
+    const pastaPublicados = path.join(pastaAbsoluta, 'publicados');
+    if (!fs.existsSync(pastaPublicados)) fs.mkdirSync(pastaPublicados);
+    fs.renameSync(caminhoTxt, path.join(pastaPublicados, nomeArquivo));
+
+    console.log(`    ✓ anotação inserida: "${nomeArquivo}"`);
+    inseridos++;
+  }
+
+  if (inseridos > 0) fs.writeFileSync(arquivoHtml, html, 'utf8');
+  return inseridos;
+}
+
 const siteDir   = path.resolve(CONFIG.siteDir);
 const scriptDir = path.dirname(path.resolve(process.argv[1] || __filename));
 
@@ -176,8 +220,9 @@ for (const [secao, nomeIndice] of Object.entries(CONFIG.indices)) {
   totalRemovidos += limparIndice(arquivoIndice, siteDir, CONFIG.subpastas[secao]);
 }
 
-// Publica textos novos
-for (const [secao, pastaTxt] of Object.entries(CONFIG.rascunhos)) {
+// Publica textos novos (contos, ensaios, crônicas)
+for (const secao of ['contos', 'ensaios', 'cronicas']) {
+  const pastaTxt = CONFIG.rascunhos[secao];
   const pastaAbsoluta = path.resolve(scriptDir, pastaTxt);
   if (!fs.existsSync(pastaAbsoluta)) {
     console.log(`  [aviso] Pasta não encontrada: ${pastaAbsoluta}`);
@@ -220,6 +265,9 @@ for (const [secao, pastaTxt] of Object.entries(CONFIG.rascunhos)) {
   }
 }
 
+// Publica anotações
+const totalAnotacoes = publicarAnotacoes(siteDir, scriptDir);
+
 if (erros.length > 0) {
   console.log('\n  [erros]');
   erros.forEach(e => console.log(`    ! ${e}`));
@@ -233,6 +281,7 @@ try {
   if (status.length > 0) {
     const partes = [];
     if (totalNovos > 0)     partes.push(`${totalNovos} novo(s)`);
+    if (totalAnotacoes > 0) partes.push(`${totalAnotacoes} anotação(ões)`);
     if (totalRemovidos > 0) partes.push(`${totalRemovidos} removido(s)`);
     const msg = partes.length > 0 ? `publica: ${partes.join(', ')}` : `atualiza arquivos do site`;
     execSync(`git commit -m "${msg}"`, { stdio: 'inherit' });
