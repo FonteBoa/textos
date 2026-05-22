@@ -1,7 +1,7 @@
 /**
  * publicar-local.js — fonteboa
  * Gera HTMLs nas subpastas contos/, ensaios/, cronicas/
- * Insere parágrafos novos em anotacoes.html
+ * Substitui o conteúdo de anotacoes.html pelo anotacoes.txt
  * SEM envio ao GitHub — para testes locais
  */
 
@@ -158,44 +158,33 @@ function limparIndice(arquivoIndice, siteDir, subpasta) {
 
 function publicarAnotacoes(siteDir, scriptDir) {
   const pastaAbsoluta = path.resolve(scriptDir, CONFIG.rascunhos.anotacoes);
-  if (!fs.existsSync(pastaAbsoluta)) return 0;
+  if (!fs.existsSync(pastaAbsoluta)) return false;
 
-  const txts = fs.readdirSync(pastaAbsoluta).filter(f => f.endsWith('.txt'));
-  if (txts.length === 0) return 0;
+  const caminhoTxt = path.join(pastaAbsoluta, 'anotacoes.txt');
+  if (!fs.existsSync(caminhoTxt)) return false;
 
   const arquivoHtml = path.join(siteDir, 'anotacoes.html');
   if (!fs.existsSync(arquivoHtml)) {
     console.log('  [aviso] anotacoes.html não encontrado.');
-    return 0;
+    return false;
   }
+
+  const corpo = fs.readFileSync(caminhoTxt, 'utf8')
+    .replace(/\r\n/g, '\n').trim();
+  if (!corpo) return false;
+
+  const novoConteudo = paragrafosParaHtml(corpo);
 
   let html = fs.readFileSync(arquivoHtml, 'utf8');
-  let inseridos = 0;
+  html = html.replace(
+    /(<div class="scroll-inner" id="scroller">)[\s\S]*?(<\/div>)/,
+    `$1\n      ${novoConteudo}\n    $2`
+  );
 
-  console.log(`  Seção: anotacoes (${txts.length} arquivo(s))`);
-
-  for (const nomeArquivo of txts) {
-    const caminhoTxt = path.join(pastaAbsoluta, nomeArquivo);
-    const corpo = fs.readFileSync(caminhoTxt, 'utf8')
-      .replace(/\r\n/g, '\n').trim();
-    if (!corpo) continue;
-
-    const novoP = `\n      <p>${mdParaHtml(corpo)}</p>`;
-    html = html.replace(
-      '<div class="scroll-inner" id="scroller">',
-      '<div class="scroll-inner" id="scroller">' + novoP
-    );
-
-    const pastaPublicados = path.join(pastaAbsoluta, 'publicados');
-    if (!fs.existsSync(pastaPublicados)) fs.mkdirSync(pastaPublicados);
-    fs.renameSync(caminhoTxt, path.join(pastaPublicados, nomeArquivo));
-
-    console.log(`    ✓ anotação inserida: "${nomeArquivo}"`);
-    inseridos++;
-  }
-
-  if (inseridos > 0) fs.writeFileSync(arquivoHtml, html, 'utf8');
-  return inseridos;
+  fs.writeFileSync(arquivoHtml, html, 'utf8');
+  console.log('  Seção: anotacoes');
+  console.log('    ✓ anotacoes.html atualizado');
+  return true;
 }
 
 const siteDir   = path.resolve(CONFIG.siteDir);
@@ -265,8 +254,8 @@ for (const secao of ['contos', 'ensaios', 'cronicas']) {
   }
 }
 
-// Publica anotações
-const totalAnotacoes = publicarAnotacoes(siteDir, scriptDir);
+// Atualiza anotações
+publicarAnotacoes(siteDir, scriptDir);
 
 if (erros.length > 0) {
   console.log('\n  [erros]');
@@ -274,8 +263,7 @@ if (erros.length > 0) {
 }
 
 console.log('\n  Resumo:');
-if (totalNovos > 0)       console.log(`  ✓ ${totalNovos} texto(s) gerado(s)`);
-if (totalAnotacoes > 0)   console.log(`  ✓ ${totalAnotacoes} anotação(ões) inserida(s)`);
-if (totalRemovidos > 0)   console.log(`  – ${totalRemovidos} entrada(s) removida(s) dos índices`);
-if (totalNovos === 0 && totalAnotacoes === 0 && totalRemovidos === 0) console.log('  Nenhuma alteração.');
+if (totalNovos > 0)     console.log(`  ✓ ${totalNovos} texto(s) gerado(s)`);
+if (totalRemovidos > 0) console.log(`  – ${totalRemovidos} entrada(s) removida(s) dos índices`);
+if (totalNovos === 0 && totalRemovidos === 0) console.log('  Nenhuma alteração.');
 console.log();
