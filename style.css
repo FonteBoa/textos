@@ -104,6 +104,7 @@ nav a[href="index.html"]:hover { background: var(--accent); color: var(--bg); }
   user-select: none;
   z-index: 1;
 }
+body.texto .hero-wrap { display: none; }
 
 .hero-text {
   font-family: var(--font-display);
