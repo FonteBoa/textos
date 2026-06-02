@@ -195,23 +195,3 @@
   font-style: italic;
   padding: 4px 0;
 }
-
-/* Selo de autor */
-.selo-autor {
-  display: inline-block;
-  background: #ae3321;
-  color: #fff;
-  font-family: Georgia, serif;
-  font-size: 0.65rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 1px 6px;
-  margin-left: 6px;
-  vertical-align: middle;
-}
-
-.comentario-autor-flag {
-  border-left: 3px solid #ae3321;
-  padding-left: 8px;
-}

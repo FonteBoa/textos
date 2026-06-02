@@ -4,7 +4,6 @@
 
 (function () {
   const LIMITE = 280;
-  const SENHA_AUTOR = '0501';
 
   const SUPABASE_URL = 'https://oolesbcxfiuneecgbxoo.supabase.co';
 
@@ -45,7 +44,7 @@
     }
   }
 
-  async function publicarComentario(nome, texto, autor) {
+  async function publicarComentario(nome, texto) {
     try {
       const url = `${SUPABASE_URL}/rest/v1/${TABELA}`;
 
@@ -61,7 +60,6 @@
           pagina: nomePagina(),
           nome,
           texto,
-          autor,
         })
       });
 
@@ -98,8 +96,7 @@
         <input id="campo-nome" type="text" placeholder="Nome" maxlength="80"/>
         <textarea id="campo-comentario" placeholder="Comentário" maxlength="${LIMITE}"></textarea>
         <div id="contador-chars">0 / ${LIMITE}</div>
-        <input id="campo-senha" type="password" placeholder="Senha (opcional)" style="opacity:0.3; font-size:0.7em; width:100%; margin-bottom:4px;"/>
-<button id="btn-publicar">Publicar</button>
+        <button id="btn-publicar">Publicar</button>
       </div>
 
       <div id="lista-comentarios">
@@ -121,8 +118,8 @@
 
     el.innerHTML = lista.map((c, i) => `
       ${i > 0 ? '<div class="comentario-divisor"></div>' : ''}
-      <div class="comentario-item${c.autor ? ' comentario-autor-flag' : ''}">
-        <span class="comentario-autor">${escapar(c.nome)}${c.autor ? ' <span class="selo-autor">Autor</span>' : ''}</span>
+      <div class="comentario-item">
+        <span class="comentario-autor">${escapar(c.nome)}</span>
         <span class="comentario-texto">${escapar(c.texto)}</span>
       </div>
     `).join('');
@@ -180,9 +177,7 @@
       btnPublicar.textContent = 'Enviando...';
       btnPublicar.disabled = true;
 
-      const senha = document.getElementById('campo-senha').value;
-      const autor = senha === SENHA_AUTOR;
-      const ok = await publicarComentario(nome, texto, autor);
+      const ok = await publicarComentario(nome, texto);
 
       if (ok) {
         campoNome.value = '';
