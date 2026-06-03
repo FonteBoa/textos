@@ -98,7 +98,7 @@ nav a[href="index.html"]:hover { background: var(--accent); color: var(--bg); }
 .hero-wrap {
   position: fixed;
   bottom: -0.25em;
-  left: 50%;qual
+  left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
   user-select: none;
@@ -251,6 +251,21 @@ body.texto header { display: none; }
   color: var(--bg);
 }
 
+nav::before {
+    content: '© Luiz Fonte Boa';
+    font-family: 'Calibri', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #fff;
+    padding: 2px 12px;
+    display: block;
+    text-align: right;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--accent);
+    margin-bottom: 12px;
+  }
+
 /* ── Mobile ────────────────────────────── */
 @media (max-width: 600px) {
   nav {
@@ -270,31 +285,11 @@ body.texto header { display: none; }
 
 /* ── Widescreen ────────────────────────── */
 @media (min-width: 900px) {
-  header {
-    display: none;
-  }
-
-  nav::before {
-    content: '© Luiz Fonte Boa';
-    font-family: 'Calibri', sans-serif;
-    font-weight: 900;
-    font-size: 1.3rem;
-    color: #fff;
-    padding: 2px 12px;
-    display: block;
-    text-align: right;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--accent);
-    margin-bottom: 12px;
-  }
-
   nav {
     padding-top: 20px;
     align-items: flex-end;
     flex-shrink: 0;
   }
-
   nav a {
     font-size: 1.4rem;
   }
