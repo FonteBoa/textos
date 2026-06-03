@@ -268,7 +268,8 @@ nav::before {
 /* ── Mobile ────────────────────────────── */
 @media (max-width: 600px) {
   nav {
-    padding: 20px var(--pad-h-mobile) 0;
+    margin-top: 20px;
+    padding: 0 var(--pad-h-mobile) 0;
     align-items: flex-end;
   }
   nav a { font-size: var(--nav-size-mob); padding: 1px 6px; }
@@ -279,7 +280,6 @@ nav::before {
   nav::before {
     font-size: 0.75rem;
     padding: 1px 6px;
-    margin-top: 20px;
   }
 }
 
