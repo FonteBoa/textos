@@ -91,6 +91,7 @@ nav a:hover        { background: var(--fg);     color: var(--bg); }
 nav a.active       { background: var(--fg);     color: var(--bg); }
 nav a.active:hover { background: var(--accent); color: var(--bg); }
 
+/* Estilo especial para o link "início" no hover */
 nav a[href="index.html"]:hover { background: var(--accent); color: var(--bg); }
 
 /* ── Hero decorativo ───────────────────── */
@@ -144,7 +145,7 @@ body.texto header { display: none; }
   font-weight: 900;
   font-size: 1.8rem;
   letter-spacing: -0.01em;
-  color: var(--fg);
+  color: var(--fg-muted);
   margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
@@ -269,32 +270,13 @@ body.texto header { display: none; }
 
 /* ── Widescreen ────────────────────────── */
 @media (min-width: 900px) {
-  header {
-    display: none;
-  }
-
-  nav::before {
-    content: '© Luiz Fonte Boa';
-    font-family: 'Calibri', sans-serif;
-    font-weight: 900;
-    font-size: 1.3rem;
-    color: #fff;
-    padding: 2px 12px;
-    display: block;
-    text-align: right;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--accent);
-    margin-bottom: 12px;
-  }
-
   nav {
     padding-top: 20px;
-    align-items: flex-end;
-    flex-shrink: 0;
   }
-
   nav a {
     font-size: 1.4rem;
+  }
+  .content-area {
+    top: 160px;
   }
 }

@@ -1,10 +1,6 @@
 function fitTitulo() {
     const el = document.getElementById("titulo");
     if (!el) return;
-    if (window.innerWidth >= 900) {
-        el.style.fontSize = "3.5rem";
-        return;
-    }
     el.style.fontSize = "100px";
     const header = document.querySelector("header");
     const headerStyle = window.getComputedStyle(header);
@@ -40,7 +36,7 @@ function positionContentArea() {
     if (!lastLink) return;
     const contentArea = document.getElementById('content-area');
     if (!contentArea) return;
-    const offset = window.innerWidth <= 600 ? 10 : window.innerWidth >= 900 ? -35 : 50;
+    const offset = window.innerWidth <= 600 ? 10 : window.innerWidth >= 900 ? 20 : 50;
     contentArea.style.top = (lastLink.getBoundingClientRect().bottom + offset) + 'px';
 }
 

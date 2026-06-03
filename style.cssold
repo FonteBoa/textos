@@ -161,7 +161,7 @@ body.texto .hero-wrap { display: none; }
 .scroll-inner {
   height: 100%;
   overflow-y: scroll;
-  padding: 16px 0 120px;
+  padding: 8px 0 120px;
   font-family: var(--font-body);
   font-size: var(--body-size);
   line-height: var(--body-lh);
@@ -273,8 +273,10 @@ body.texto .hero-wrap { display: none; }
   nav {
     padding-top: 20px;
   }
-
   nav a {
     font-size: 1.4rem;
+  }
+  .content-area {
+    top: 160px;
   }
 }
