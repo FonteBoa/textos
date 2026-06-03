@@ -272,15 +272,15 @@ nav::before {
     padding: 32px var(--pad-h-mobile) 0;
     align-items: flex-end;
   }
-
   nav a { font-size: var(--nav-size-mob); padding: 1px 6px; }
-
   header { padding: 20px var(--pad-h-mobile) 0; }
-
   .content-area,
   .index-area          { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
-
   .content-area-fade   { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
+  nav::before {
+    font-size: 0.8rem;
+    padding: 1px 8px;
+  }
 }
 
 /* ── Widescreen ────────────────────────── */
