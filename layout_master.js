@@ -40,7 +40,7 @@ function positionContentArea() {
     if (!lastLink) return;
     const contentArea = document.getElementById('content-area');
     if (!contentArea) return;
-    const offset = window.innerWidth <= 600 ? 10 : window.innerWidth >= 900 ? -35 : 50;
+    const offset = window.innerWidth <= 600 ? 10 : window.innerWidth >= 900 ? -15 : 50;
     contentArea.style.top = (lastLink.getBoundingClientRect().bottom + offset) + 'px';
 }
 

@@ -189,7 +189,7 @@ body.texto header { display: none; }
   left: var(--pad-h);
   right: var(--pad-h);
   bottom: 30px;
-  z-index: 30;
+  z-index: 20;
   overflow-y: auto;
   padding-bottom: 120px;
   scrollbar-width: none;
