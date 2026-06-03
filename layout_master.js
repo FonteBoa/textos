@@ -30,7 +30,7 @@ function fitTextTitle() {
     const available = el.parentElement.offsetWidth;
     if (el.scrollWidth > available) {
         const scale = available / el.scrollWidth;
-        el.style.fontSize = Math.max(0.9, base * scale) + 'rem';
+        el.style.fontSize = Math.max(0.6, base * scale) + 'rem';
     }
 }
 
