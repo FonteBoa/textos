@@ -284,6 +284,9 @@ nav::before {
   .text-title {
     font-size: 1.1rem;
   }
+  .index-col a {
+    font-size: 1rem;
+  }
 }
 
 /* ── Widescreen ────────────────────────── */
