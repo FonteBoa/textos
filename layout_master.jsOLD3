@@ -118,47 +118,12 @@ function enableKeyboardScroll() {
     });
 }
 
-const SVG_EXPANDIR = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M3 8V5a2 2 0 0 1 2-2h3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M16 3h3a2 2 0 0 1 2 2v3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M21 16v3a2 2 0 0 1-2 2h-3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M8 21H5a2 2 0 0 1-2-2v-3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>`;
-
-const SVG_RESTAURAR = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M8 3V5a2 2 0 0 1-2 2H3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M21 8h-3a2 2 0 0 1-2-2V3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M16 21v-2a2 2 0 0 1 2-2h3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-  <path d="M3 16h3a2 2 0 0 1 2 2v3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
-</svg>`;
-
-function injectBtnLeitura() {
-    const scrollArea = document.querySelector('.scroll-area');
-    const scrollInner = document.getElementById('scroller');
-    if (!scrollArea || !scrollInner) return;
-
-    const btn = document.createElement('button');
-    btn.id = 'btn-leitura';
-    btn.title = 'Modo leitura';
-    btn.innerHTML = SVG_EXPANDIR;
-
-    btn.addEventListener('click', () => {
-        const ativo = document.body.classList.toggle('leitura');
-        btn.innerHTML = ativo ? SVG_RESTAURAR : SVG_EXPANDIR;
-        btn.title = ativo ? 'Restaurar' : 'Modo leitura';
-        refreshLayout();
-    });
-
-    scrollArea.appendChild(btn);
-}
-
 function initLayout(pageKey) {
     injectMenu(pageKey);
     document.fonts.ready.then(() => {
         refreshLayout();
         if (document.getElementById('scroller')) {
             enableKeyboardScroll();
-            injectBtnLeitura();
         }
     });
     window.addEventListener("resize", refreshLayout);

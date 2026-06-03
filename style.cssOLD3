@@ -153,7 +153,6 @@ body.texto header { display: none; }
 .scroll-area {
   flex: 1;
   overflow: hidden;
-  position: relative;
   border-top: 1px solid rgba(0,0,0,0.2);
   border-bottom: 1px solid rgba(0,0,0,0.2);
 }
@@ -183,43 +182,6 @@ body.texto header { display: none; }
   pointer-events: none;
   z-index: 18;
 }
-
-/* ── Botão modo leitura ────────────────── */
-#btn-leitura {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  background: #000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 6px;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: top 0.2s;
-}
-
-body.leitura #btn-leitura {
-  top: 24px;
-}
-
-@media (max-width: 600px) {
-  #btn-leitura {
-    width: 26px;
-    height: 26px;
-    padding: 5px;
-  }
-}
-
-/* ── Modo leitura ativo ────────────────── */
-body.leitura #nav-menu          { display: none; }
-body.leitura nav::before        { display: none; }
-body.leitura .text-title        { display: none; }
-body.leitura #reading-bar       { display: none; }
 
 /* ── Páginas de índice ─────────────────── */
 .index-area {
