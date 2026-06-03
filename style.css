@@ -279,6 +279,7 @@ nav::before {
   nav::before {
     font-size: 0.75rem;
     padding: 1px 6px;
+    margin-top: 20px;
   }
 }
 
