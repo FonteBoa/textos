@@ -281,6 +281,9 @@ nav::before {
     font-size: 0.75rem;
     padding: 1px 6px;
   }
+  .text-title {
+    font-size: 1.1rem;
+  }
 }
 
 /* ── Widescreen ────────────────────────── */
