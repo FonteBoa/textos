@@ -98,8 +98,7 @@ nav a[href="index.html"]:hover { background: var(--accent); color: var(--bg); }
 .hero-wrap {
   position: fixed;
   bottom: -0.25em;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 60%;
   pointer-events: none;
   user-select: none;
   z-index: 1;
