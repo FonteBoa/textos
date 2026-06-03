@@ -25,11 +25,12 @@ function fitHero() {
 function fitTextTitle() {
     const el = document.getElementById('text-title');
     if (!el) return;
-    el.style.fontSize = '1.8rem';
+    const base = window.innerWidth <= 600 ? 1.1 : 1.8;
+    el.style.fontSize = base + 'rem';
     const available = el.parentElement.offsetWidth;
     if (el.scrollWidth > available) {
         const scale = available / el.scrollWidth;
-        el.style.fontSize = Math.max(0.9, 1.8 * scale) + 'rem';
+        el.style.fontSize = Math.max(0.9, base * scale) + 'rem';
     }
 }
 
