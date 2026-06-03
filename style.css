@@ -278,8 +278,8 @@ nav::before {
   .index-area          { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
   .content-area-fade   { left: var(--pad-h-mobile); right: var(--pad-h-mobile); }
   nav::before {
-    font-size: 0.8rem;
-    padding: 1px 8px;
+    font-size: 0.75rem;
+    padding: 1px 6px;
   }
 }
 
