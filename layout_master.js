@@ -18,7 +18,7 @@ function fitHero() {
     const el = document.getElementById("hero");
     if (!el) return;
     el.style.fontSize = "100px";
-    const scale = (window.innerWidth * 1.12) / el.scrollWidth;
+    const scale = (window.innerWidth * 1.8) / el.scrollWidth;
     el.style.fontSize = (100 * scale) + "px";
 }
 
