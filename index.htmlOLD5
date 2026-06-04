@@ -82,6 +82,7 @@
     const href = link.getAttribute('href');
     if (!href) return;
     e.preventDefault();
+    sessionStorage.setItem('fade-from-index', '1');
     document.body.classList.remove('bg-visivel');
     document.body.classList.add('saindo');
     setTimeout(() => { window.location.href = href; }, 2020);

@@ -153,13 +153,16 @@ function injectBtnLeitura() {
 }
 
 function initLayout(pageKey) {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 2s ease';
-    requestAnimationFrame(() => {
+    if (sessionStorage.getItem('fade-from-index')) {
+        sessionStorage.removeItem('fade-from-index');
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 2s ease';
         requestAnimationFrame(() => {
-            document.body.style.opacity = '1';
+            requestAnimationFrame(() => {
+                document.body.style.opacity = '1';
+            });
         });
-    });
+    }
     injectMenu(pageKey);
     document.fonts.ready.then(() => {
         refreshLayout();

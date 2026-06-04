@@ -153,13 +153,6 @@ function injectBtnLeitura() {
 }
 
 function initLayout(pageKey) {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 2s ease';
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            document.body.style.opacity = '1';
-        });
-    });
     injectMenu(pageKey);
     document.fonts.ready.then(() => {
         refreshLayout();
