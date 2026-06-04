@@ -6,14 +6,91 @@
   <title>fonteboa</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
   <link href="style.css" rel="stylesheet"/>
+  <style>
+    body.inicio::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('franzkline.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 3s ease;
+      pointer-events: none;
+    }
+    body.inicio.bg-visivel::before {
+      opacity: 1;
+    }
+    body.inicio nav {
+      position: relative;
+      z-index: 10;
+      isolation: isolate;
+    }
+    body.inicio nav a {
+      color: #fff;
+      text-shadow: 0 0 12px rgba(0,0,0,0.8);
+      background: transparent;
+      transition: color 3s ease, text-shadow 3s ease;
+    }
+    body.inicio.saindo nav a {
+      color: #000;
+      text-shadow: none;
+    }
+    body.inicio nav a:hover {
+      background: #fff;
+      color: #000;
+      text-shadow: none;
+      transition: none;
+    }
+    body.inicio nav a.active {
+      background: #fff;
+      color: #000;
+      text-shadow: none;
+    }
+    body.inicio nav a.active:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    body.inicio .hero-text {
+      color: #fff;
+      opacity: 0.08;
+      transition: opacity 3s ease;
+    }
+    body.inicio.saindo .hero-text {
+      opacity: 0;
+    }
+  </style>
 </head>
-<body>
+<body class="inicio">
 <header><div class="titulo" id="titulo">ficção breve de Luiz Fonte Boa, (1962- )</div></header>
 <nav id="nav-menu"></nav>
 <div class="hero-wrap">
   <div class="hero-text" id="hero">fonteboa</div>
 </div>
 <script src="layout_master.js"></script>
-<script>initLayout('inicio');</script>
+<script>
+  initLayout('inicio');
+
+  // Fade in ao carregar
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add('bg-visivel');
+    });
+  });
+
+  // Fade out ao clicar em link do nav
+  document.getElementById('nav-menu').addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
+    e.preventDefault();
+    document.body.classList.remove('bg-visivel');
+    document.body.classList.add('saindo');
+    setTimeout(() => { window.location.href = href; }, 3020);
+  });
+</script>
 </body>
 </html>
