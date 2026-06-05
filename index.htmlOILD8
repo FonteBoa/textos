@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>fonteboa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+  <link href="style.css" rel="stylesheet"/>
+  <style>
+    body.inicio { animation: none; }
+    body.inicio::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url('franzkline.png');
+      background-size: cover;
+      background-position: right top;
+      mix-blend-mode: multiply;
+      background-repeat: no-repeat;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 2s ease;
+      pointer-events: none;
+    }
+    body.inicio.bg-visivel::before { opacity: 1; }
+    body.inicio nav {
+      position: relative;
+      z-index: 10;
+      isolation: isolate;
+      transition: opacity 2s ease;
+    }
+    body.inicio nav a { color: #fff; text-shadow: 0 0 12px rgba(0,0,0,0.8); }
+    body.inicio nav a:hover { background: #fff; color: #000; text-shadow: none; }
+    body.inicio nav a.active { background: #fff; color: #000; text-shadow: none; }
+    body.inicio nav a.active:hover { background: var(--accent); color: #fff; }
+    body.inicio .hero-text { color: #fff; opacity: 0.35; transition: opacity 2s ease; }
+    body.inicio.saindo nav { opacity: 0; }
+    body.inicio.saindo .hero-text { opacity: 0; }
+
+    /* Modal */
+    #modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+    #modal-overlay.visivel { display: flex; }
+    #modal-box {
+      width: 400px;
+      max-width: 90vw;
+      background: rgba(242, 223, 206, 0.95);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+      display: flex;
+      flex-direction: column;
+    }
+    #modal-titulo {
+      background: #000;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-weight: 900;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 10px 36px;
+      user-select: none;
+      position: relative;
+    }
+    #modal-fechar {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.15s;
+    }
+    #modal-fechar:hover { opacity: 1; }
+    #modal-corpo {
+      padding: 18px 20px 20px;
+      font-family: Georgia, serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      line-height: 1.3;
+      text-align: center;
+    }
+    #modal-contato {
+      margin-top: 14px;
+      background: #000;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-weight: 900;
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      padding: 6px 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #modal-contato:hover { background: #ae3321; }
+    #modal-email {
+      margin-top: 10px;
+      font-family: Georgia, serif;
+      font-size: 0.82rem;
+      color: #1a1a1a;
+      display: none;
+    }
+  </style>
+</head>
+<body class="inicio">
+<header><div class="titulo" id="titulo">ficção breve de Luiz Fonte Boa, (1962- )</div></header>
+<nav id="nav-menu"></nav>
+<div class="hero-wrap">
+  <div class="hero-text" id="hero">fonteboa</div>
+</div>
+
+<div id="modal-overlay">
+  <div id="modal-box">
+    <div id="modal-titulo">
+      Luiz Fonte Boa: ficção breve
+      <button id="modal-fechar">✕</button>
+    </div>
+    <div id="modal-corpo">
+      Contos, ensaios e crônicas de autoria de Luiz&nbsp;Fonte&nbsp;Boa. Alguns textos contêm linguagem que pode vir a ser considerada imoral, violenta ou inadequada<br>a qualquer público.<br>Ficção literária.
+      <button id="modal-contato">Entrar em contato</button>
+      <div id="modal-email"></div>
+    </div>
+  </div>
+</div>
+
+<script src="layout_master.js"></script>
+<script>
+  initLayout('inicio');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add('bg-visivel');
+    });
+  });
+
+  document.getElementById('nav-menu').addEventListener('click', function(e) {
+    const link = e.target.closest('a');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href) return;
+    e.preventDefault();
+    document.body.classList.remove('bg-visivel');
+    document.body.classList.add('saindo');
+    setTimeout(() => { window.location.href = href; }, 2020);
+  });
+
+  document.querySelector('nav').addEventListener('click', function(e) {
+    if (e.target.closest('a')) return;
+    document.getElementById('modal-overlay').classList.add('visivel');
+  });
+
+  document.getElementById('modal-fechar').addEventListener('click', function() {
+    document.getElementById('modal-overlay').classList.remove('visivel');
+    document.getElementById('modal-email').style.display = 'none';
+    document.getElementById('modal-email').textContent = '';
+  });
+
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target === this) {
+      this.classList.remove('visivel');
+      document.getElementById('modal-email').style.display = 'none';
+      document.getElementById('modal-email').textContent = '';
+    }
+  });
+
+  document.getElementById('modal-contato').addEventListener('click', function() {
+    const u = 'fonteboa';
+    const d = 'gmail.com';
+    const el = document.getElementById('modal-email');
+    el.textContent = u + '@' + d;
+    el.style.display = 'block';
+  });
+</script>
+</body>
+</html>
