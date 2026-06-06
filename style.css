@@ -173,7 +173,7 @@ body.texto header { display: none; }
 }
 
 .scroll-inner p {
-  margin-bottom: 1em;
+  margin-bottom: 1.7em;
 }
 
 .scroll-inner p:first-child {
@@ -222,9 +222,9 @@ body.leitura #btn-leitura {
 }
 
 /* ── Modo leitura ativo ────────────────── */
-body.leitura #nav-menu          { display: none; }
+body.leitura #nav-menu    { display: none; }
 body.leitura nav::before        { display: none; }
-body.leitura .text-title        { display: none; }
+body.leitura .text-title  { display: none; }
 body.leitura #reading-bar       { display: none; }
 
 /* ── Páginas de índice ─────────────────── */
