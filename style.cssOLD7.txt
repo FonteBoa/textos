@@ -166,19 +166,13 @@ body.texto header { display: none; }
   font-size: var(--body-size);
   line-height: var(--body-lh);
   color: var(--fg-text);
-  white-space: normal;
+  white-space: pre-wrap;
   tab-size: 4;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.scroll-inner p {
-  margin-bottom: 1em;
-}
-
-.scroll-inner p:first-child {
-  margin-top: 2em;
-}.scroll-inner::-webkit-scrollbar { display: none; }
+.scroll-inner::-webkit-scrollbar { display: none; }
 
 .content-area-fade {
   position: fixed;
