@@ -8,7 +8,6 @@
 
   const SUPABASE_URL = 'https://oolesbcxfiuneecgbxoo.supabase.co';
 
-  // ⚠️ USE A ANON PUBLIC KEY (JWT LEGACY), NÃO publishable key
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9vbGVzYmN4Zml1bmVlY2dieG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3NzYyMDIsImV4cCI6MjA5NDM1MjIwMn0.TcldtUy4oo2bkn3szrVQw7SqTa-HN6bTeyJpmK7T4Gs';
 
   const TABELA = 'comentarios';
@@ -197,5 +196,6 @@
       btnPublicar.textContent = 'Publicar';
       btnPublicar.disabled = false;
     });
+
   });
 })();
