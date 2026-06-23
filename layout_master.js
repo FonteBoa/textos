@@ -159,7 +159,7 @@ function injectModal() {
         <div id="modal-box">
             <div id="modal-titulo">Luiz Fonte Boa: ficção breve<button id="modal-fechar">✕</button></div>
             <div id="modal-corpo">
-                Contos, ensaios e crônicas de autoria de Luiz&nbsp;Fonte&nbsp;Boa. Alguns textos contêm linguagem que pode vir a ser considerada imoral, violenta ou inadequada<br>a qualquer público.<br>Ficção literária.
+                Contos, ensaios e crônicas de autoria de Luiz&nbsp;Fonte&nbsp;Boa. Alguns textos contêm linguagem que pode vir a ser considerada imprópria para público jovem.<br>Qualquer semelhança com eventos ou pessoas reais<br>é mera coincidência<br>Ficção literária.
                 <button id="modal-contato">Entrar em contato</button>
                 <div id="modal-email"></div>
             </div>
