@@ -178,13 +178,7 @@ body.texto header { display: none; }
 
 .scroll-inner p:first-child {
   margin-top: 2em;
-}
-
-.scroll-inner p + p {
-  text-indent: 2em;
-}
-
-.scroll-inner::-webkit-scrollbar { display: none; }
+}.scroll-inner::-webkit-scrollbar { display: none; }
 
 .content-area-fade {
   position: fixed;
