@@ -180,7 +180,7 @@ body.texto header { display: none; }
   margin-top: 2em;
 }
 
-.scroll-inner p + p {
+.scroll-inner p {
   text-indent: 2em;
 }
 
